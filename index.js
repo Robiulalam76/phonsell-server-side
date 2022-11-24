@@ -16,7 +16,6 @@ app.use(express.json())
 const uri = process.env.DB_ACCESS_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-console.log(uri);
 async function run() {
     try {
         const categoriesCollection = client.db('phonsell').collection('categories')
@@ -34,6 +33,17 @@ async function run() {
             const query = {}
             const result = await categoriesCollection.find(query).toArray()
             res.send(result)
+        });
+
+        // get cotegory
+        app.get('/categories/:id', async (req, res) => {
+            const id = req.params.id
+            const p = { categoryId: id }
+            const query = {}
+            const categories = await categoriesCollection.findOne(p)
+            console.log(p);
+            // const result = categories.find(category => category.categoryId === id)
+            console.log(categories);
         })
 
     }

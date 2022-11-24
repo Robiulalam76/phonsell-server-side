@@ -1,0 +1,254 @@
+[
+    {
+        "categoryId": 1,
+        "brand": "Apple",
+        "Products": [
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            }
+        ]
+    },
+    {
+        "categoryId": 2,
+        "brand": "Xiaomi",
+        "Products": [
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            }
+        ]
+    },
+    {
+        "categoryId": 3,
+        "brand": "Samsung",
+        "Products": [
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            },
+            {
+                "name": "iphone 11",
+                "price": 200,
+                "sold": "available",
+                "condition": "used",
+                "used": "1 year",
+                "orginalPrice": 700,
+                "Brand": "apple",
+                "Model": "iphone 11",
+                "Authenticity": "Original",
+                "features": "Bluetooth, Camera, Dual-Lens Camera, Expandable Memory, Fingerprint Sensor, GPS, Physical keyboard, Motion Sensors, 3G, 4G, 5G, GSM, Touch screen",
+                "description": "iPhone  11,Batery health  100percnt  akbara fresh kon spot nai akbara new ...USA version ..charger,  box, headphones  sob  acha"
+            }
+        ]
+    }
+]

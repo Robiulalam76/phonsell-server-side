@@ -1,17 +1,17 @@
 [
     {
         "categoryId": 1,
-        "name": "iphone",
+        "brand": "Apple",
         "image": "https://es.digitaltrends.com/wp-content/uploads/2022/01/iphone-14-mock-pill-blue-feature.jpg?p=1"
     },
     {
         "categoryId": 2,
-        "name": "Xiaomi",
+        "brand": "Xiaomi",
         "image": "https://www.bajajfinserv.in/Best_Xiaomi_Phones_under_Rs_20000_in_India_img1_Xiaomi-Redmi-Note-10-Pro_CP-Hero-Page-banner_790x345.jpg"
     },
     {
         "categoryId": 3,
-        "name": "Samsung",
+        "brand": "Samsung",
         "image": "https://s3b.cashify.in/gpro/uploads/2021/04/04182730/Samsung-Galaxy-F62.jpg"
     }
 ]
