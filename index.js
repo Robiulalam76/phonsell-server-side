@@ -19,7 +19,9 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const categoriesCollection = client.db('phonsell').collection('categories')
+        const productsCollection = client.db('phonsell').collection('products')
         const usersCollection = client.db('phonsell').collection('users')
+        const wishlistCollection = client.db('phonsell').collection('wishlist')
 
         // signup to set users
         app.post('/users', async (req, res) => {
@@ -38,12 +40,31 @@ async function run() {
         // get cotegory
         app.get('/categories/:id', async (req, res) => {
             const id = req.params.id
-            const p = { categoryId: id }
+            const query = { categoryId: parseInt(id) }
+            const result = await productsCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // add wishlist system
+        app.post('/wishlist', async (req, res) => {
+            const product = req.body;
+            const result = await wishlistCollection.insertOne(product)
+            res.send(result)
+        });
+
+        // get wishlist from database
+        app.get('/wishlist', async (req, res) => {
             const query = {}
-            const categories = await categoriesCollection.findOne(p)
-            console.log(p);
-            // const result = categories.find(category => category.categoryId === id)
-            console.log(categories);
+            const result = await wishlistCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // delete wishlist from database
+        app.delete('/wishlist/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { serviceId: id }
+            const result = await wishlistCollection.deleteOne(query)
+            res.send(result)
         })
 
     }
