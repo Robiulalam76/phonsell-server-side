@@ -40,6 +40,35 @@ async function run() {
             res.send(result)
         })
 
+        // get all users
+        app.get('/all-users', async (req, res) => {
+            const query = { role: 'user' }
+            const result = await usersCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // delete user from admin
+        app.delete('/all-users/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectId(id) }
+            const result = await usersCollection.deleteOne(query)
+            res.send(result)
+        })
+
+        // get all sellers
+        app.get('/all-sellers', async (req, res) => {
+            const query = { role: 'seller' }
+            const result = await usersCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // verify user from admin
+        // app.get('/all-users', async (req, res) => {
+        //     const query = { role: 'user' }
+        //     const result = await usersCollection.find(query).toArray()
+        //     res.send(result)
+        // })
+
         // categories
         app.get('/categories', async (req, res) => {
             const query = {}
@@ -119,9 +148,18 @@ async function run() {
 
 
         // get order
-        app.get('/orders', async (req, res) => {
-            const query = {}
+        app.get('/my-orders', async (req, res) => {
+            const email = req.query.email
+            const query = { email: email }
             const result = await ordersCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // delete order
+        app.delete('/my-orders/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectId(id) }
+            const result = await ordersCollection.deleteOne(query)
             res.send(result)
         })
 
