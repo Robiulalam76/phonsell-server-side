@@ -40,9 +40,17 @@ async function run() {
         // get cotegory
         app.get('/categories/:id', async (req, res) => {
             const id = req.params.id
-            const query = { categoryId: parseInt(id) }
+            const query = { categoryId: id }
             const result = await productsCollection.find(query).toArray()
             res.send(result)
+        })
+
+        // Product add from client side
+        app.post('/products', async (req, res) => {
+            const product = req.body
+            console.log(product);
+            // const result = await productsCollection.insertOne(product)
+            // res.send(result)
         })
 
         // add wishlist system
