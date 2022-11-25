@@ -30,6 +30,15 @@ async function run() {
             res.send(result)
         });
 
+
+        // user load with query
+        app.get('/users', async (req, res) => {
+            const email = req.query.email
+            const query = { email: email }
+            const result = await usersCollection.findOne(query)
+            res.send(result)
+        })
+
         // categories
         app.get('/categories', async (req, res) => {
             const query = {}
@@ -48,9 +57,8 @@ async function run() {
         // Product add from client side
         app.post('/products', async (req, res) => {
             const product = req.body
-            console.log(product);
-            // const result = await productsCollection.insertOne(product)
-            // res.send(result)
+            const result = await productsCollection.insertOne(product)
+            res.send(result)
         })
 
         // add wishlist system
