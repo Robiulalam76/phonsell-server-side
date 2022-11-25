@@ -22,6 +22,7 @@ async function run() {
         const productsCollection = client.db('phonsell').collection('products')
         const usersCollection = client.db('phonsell').collection('users')
         const wishlistCollection = client.db('phonsell').collection('wishlist')
+        const ordersCollection = client.db('phonsell').collection('orders')
 
         // signup to set users
         app.post('/users', async (req, res) => {
@@ -80,6 +81,14 @@ async function run() {
             const id = req.params.id
             const query = { serviceId: id }
             const result = await wishlistCollection.deleteOne(query)
+            res.send(result)
+        })
+
+
+        // set order database from user
+        app.post('/orders', async (req, res) => {
+            const order = req.body
+            const result = await ordersCollection.insertOne(order)
             res.send(result)
         })
 
