@@ -62,6 +62,14 @@ async function run() {
             res.send(result)
         })
 
+        // get My Products for seller
+        app.post('/products', async (req, res) => {
+            const email = req.query.email
+            const query = { email: email }
+            const result = await productsCollection.find(query).toArray()
+            res.send(result)
+        })
+
         // add wishlist system
         app.post('/wishlist', async (req, res) => {
             const product = req.body;
@@ -72,6 +80,15 @@ async function run() {
         // get wishlist from database
         app.get('/wishlist', async (req, res) => {
             const query = {}
+            const result = await wishlistCollection.find(query).toArray()
+            res.send(result)
+        })
+
+
+        // get My wishlist from database
+        app.get('/my-wishlist', async (req, res) => {
+            const email = req.query.email
+            const query = { wishlisterEmail: email }
             const result = await wishlistCollection.find(query).toArray()
             res.send(result)
         })
@@ -89,6 +106,14 @@ async function run() {
         app.post('/orders', async (req, res) => {
             const order = req.body
             const result = await ordersCollection.insertOne(order)
+            res.send(result)
+        })
+
+
+        // get order
+        app.get('/orders', async (req, res) => {
+            const query = {}
+            const result = await ordersCollection.find(query).toArray()
             res.send(result)
         })
 
