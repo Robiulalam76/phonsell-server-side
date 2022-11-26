@@ -23,6 +23,7 @@ async function run() {
         const usersCollection = client.db('phonsell').collection('users')
         const wishlistCollection = client.db('phonsell').collection('wishlist')
         const ordersCollection = client.db('phonsell').collection('orders')
+        const reportsCollection = client.db('phonsell').collection('reports')
 
         // signup to set users
         app.post('/users', async (req, res) => {
@@ -38,6 +39,17 @@ async function run() {
             const query = { email: email }
             const result = await usersCollection.findOne(query)
             res.send(result)
+        })
+
+        // set New user
+        app.get('/check-user', async (req, res) => {
+            const email = req.query.email
+            const query = { email: email }
+            const user = await usersCollection.findOne(query)
+            if (user === null) {
+                return res.send({ status: false })
+            }
+            res.send({ status: true })
         })
 
         // get all users
@@ -62,12 +74,28 @@ async function run() {
             res.send(result)
         })
 
+
+        // delete user from admin
+        app.delete('/all-sellers/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectId(id) }
+            const result = await usersCollection.deleteOne(query)
+            res.send(result)
+        })
+
         // verify user from admin
-        // app.get('/all-users', async (req, res) => {
-        //     const query = { role: 'user' }
-        //     const result = await usersCollection.find(query).toArray()
-        //     res.send(result)
-        // })
+        app.put('/all-sellers/:id', async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: ObjectId(id) }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: {
+                    verify: true
+                }
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
+        })
 
         // categories
         app.get('/categories', async (req, res) => {
@@ -104,6 +132,21 @@ async function run() {
             const email = req.query.email
             const query = { email: email }
             const result = await productsCollection.find(query).toArray()
+            res.send(result)
+        })
+
+
+        // Product Report to admin
+        app.post('/reports', async (req, res) => {
+            const report = req.body
+            const result = await reportsCollection.insertOne(report)
+            res.send(result)
+        })
+
+        // get all Report
+        app.get('/reports', async (req, res) => {
+            const query = {}
+            const result = await reportsCollection.find(query).toArray()
             res.send(result)
         })
 
