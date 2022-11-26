@@ -24,6 +24,7 @@ async function run() {
         const wishlistCollection = client.db('phonsell').collection('wishlist')
         const ordersCollection = client.db('phonsell').collection('orders')
         const reportsCollection = client.db('phonsell').collection('reports')
+        const advertiseProductsCollection = client.db('phonsell').collection('advertiseProducts')
 
         // signup to set users
         app.post('/users', async (req, res) => {
@@ -38,6 +39,15 @@ async function run() {
             const email = req.query.email
             const query = { email: email }
             const result = await usersCollection.findOne(query)
+            res.send(result)
+        })
+
+        // user load with query
+        app.get('/verify-users', async (req, res) => {
+            const email = req.query.email
+            const query = { email: email }
+            const result = await usersCollection.find(query).toArray()
+            // console.log(query);
             res.send(result)
         })
 
@@ -150,6 +160,15 @@ async function run() {
             res.send(result)
         })
 
+
+        // report product delete from admin
+        app.delete('/reports/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { serviceId: id }
+            const result = await reportsCollection.deleteOne(query)
+            res.send(result)
+        })
+
         // add wishlist system
         app.post('/wishlist', async (req, res) => {
             const product = req.body;
@@ -203,6 +222,14 @@ async function run() {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await ordersCollection.deleteOne(query)
+            res.send(result)
+        })
+
+
+        // advertise stored
+        app.get('/advertise', async (req, res) => {
+            const advertiseProduct = req.body
+            const result = await advertiseProductsCollection.insertOne(advertiseProduct)
             res.send(result)
         })
 
