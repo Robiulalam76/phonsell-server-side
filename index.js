@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 require('dotenv').config()
+const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
 
@@ -11,7 +12,22 @@ app.use(cors())
 app.use(express.json())
 
 
+function verifyJWT(req, res, next) {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader) {
+        return res.status(401).send({ message: 'unauthorized Access' })
+    }
+    const token = authHeader.split(' ')[1]
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, decoded) {
+        if (err) {
+            return res.status(403).send({ message: 'unauthorized Access' })
+        }
 
+        req.decoded = decoded
+        next()
+    })
+}
 
 const uri = process.env.DB_ACCESS_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -25,6 +41,21 @@ async function run() {
         const ordersCollection = client.db('phonsell').collection('orders')
         const reportsCollection = client.db('phonsell').collection('reports')
         const advertiseProductsCollection = client.db('phonsell').collection('advertiseProducts')
+
+
+        // verify jwt token
+        app.get('/jwt', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email }
+            const user = await usersCollection.findOne(query)
+            if (user) {
+                const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
+                console.log(token);
+                return res.send({ accessToken: token })
+            }
+            // res.status(403).send({ accessToken: 'unauthorized Access' })
+        })
+
 
         // signup to set users
         app.post('/users', async (req, res) => {
@@ -70,7 +101,7 @@ async function run() {
         })
 
         // delete user from admin
-        app.delete('/all-users/:id', async (req, res) => {
+        app.delete('/all-users/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await usersCollection.deleteOne(query)
@@ -147,7 +178,7 @@ async function run() {
 
 
         // Product Report to admin
-        app.post('/reports', async (req, res) => {
+        app.post('/reports', verifyJWT, async (req, res) => {
             const report = req.body
             const result = await reportsCollection.insertOne(report)
             res.send(result)
@@ -170,7 +201,7 @@ async function run() {
         })
 
         // add wishlist system
-        app.post('/wishlist', async (req, res) => {
+        app.post('/wishlist', verifyJWT, async (req, res) => {
             const product = req.body;
             const result = await wishlistCollection.insertOne(product)
             res.send(result)
@@ -193,7 +224,7 @@ async function run() {
         })
 
         // delete wishlist from database
-        app.delete('/wishlist/:id', async (req, res) => {
+        app.delete('/wishlist/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { serviceId: id }
             const result = await wishlistCollection.deleteOne(query)
@@ -202,7 +233,7 @@ async function run() {
 
 
         // set order database from user
-        app.post('/orders', async (req, res) => {
+        app.post('/orders', verifyJWT, async (req, res) => {
             const order = req.body
             const result = await ordersCollection.insertOne(order)
             res.send(result)
@@ -227,9 +258,24 @@ async function run() {
 
 
         // advertise stored
-        app.get('/advertise', async (req, res) => {
+        app.post('/advertise', async (req, res) => {
             const advertiseProduct = req.body
             const result = await advertiseProductsCollection.insertOne(advertiseProduct)
+            res.send(result)
+        })
+
+        // get advertise products
+        app.get('/advertiseProducts', async (req, res) => {
+            const query = {}
+            const result = await advertiseProductsCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // delete order
+        app.delete('/advertiseProducts/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { serviceId: id }
+            const result = await advertiseProductsCollection.deleteOne(query)
             res.send(result)
         })
 
