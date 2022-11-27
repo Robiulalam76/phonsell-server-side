@@ -117,7 +117,7 @@ async function run() {
 
 
         // delete user from admin
-        app.delete('/all-sellers/:id', async (req, res) => {
+        app.delete('/all-sellers/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await usersCollection.deleteOne(query)
@@ -125,7 +125,7 @@ async function run() {
         })
 
         // verify user from admin
-        app.put('/all-sellers/:id', async (req, res) => {
+        app.put('/all-sellers/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const filter = { _id: ObjectId(id) }
             const options = { upsert: true }
@@ -154,14 +154,14 @@ async function run() {
         })
 
         // Product add from client side
-        app.post('/products', async (req, res) => {
+        app.post('/products', verifyJWT, async (req, res) => {
             const product = req.body
             const result = await productsCollection.insertOne(product)
             res.send(result)
         })
 
         // Product delete from seller
-        app.delete('/products/:id', async (req, res) => {
+        app.delete('/products/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await productsCollection.deleteOne(query)
@@ -176,7 +176,7 @@ async function run() {
             res.send(result)
         })
 
-
+        // ----------------------------------------------------------------------
         // Product Report to admin
         app.post('/reports', verifyJWT, async (req, res) => {
             const report = req.body
@@ -193,7 +193,7 @@ async function run() {
 
 
         // report product delete from admin
-        app.delete('/reports/:id', async (req, res) => {
+        app.delete('/reports/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { serviceId: id }
             const result = await reportsCollection.deleteOne(query)
@@ -249,7 +249,7 @@ async function run() {
         })
 
         // delete order
-        app.delete('/my-orders/:id', async (req, res) => {
+        app.delete('/my-orders/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await ordersCollection.deleteOne(query)
@@ -258,7 +258,7 @@ async function run() {
 
 
         // advertise stored
-        app.post('/advertise', async (req, res) => {
+        app.post('/advertise', verifyJWT, async (req, res) => {
             const advertiseProduct = req.body
             const result = await advertiseProductsCollection.insertOne(advertiseProduct)
             res.send(result)
@@ -272,7 +272,7 @@ async function run() {
         })
 
         // delete order
-        app.delete('/advertiseProducts/:id', async (req, res) => {
+        app.delete('/advertiseProducts/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const query = { serviceId: id }
             const result = await advertiseProductsCollection.deleteOne(query)
