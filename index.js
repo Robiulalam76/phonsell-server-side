@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors')
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
 
@@ -41,7 +42,75 @@ async function run() {
         const ordersCollection = client.db('phonsell').collection('orders')
         const reportsCollection = client.db('phonsell').collection('reports')
         const advertiseProductsCollection = client.db('phonsell').collection('advertiseProducts')
+        const paymentsCollection = client.db('phonsell').collection('payments');
 
+
+        // verify admin
+        const verifyAdmin = async (req, res, next) => {
+            const decodedEmail = req.decoded.email
+            const query = { email: decodedEmail }
+            const user = await usersCollection.findOne(query)
+
+            if (user?.role !== 'admin') {
+                res.status(403).send({ message: 'Forbidden Access' })
+            }
+            next()
+        }
+
+        // verify Seller
+        const verifySeller = async (req, res, next) => {
+            const decodedEmail = req.decoded.email
+            const query = { email: decodedEmail }
+            const user = await usersCollection.findOne(query)
+
+            if (user?.role !== 'seller') {
+                res.status(403).send({ message: 'Forbidden Access' })
+            }
+            next()
+        }
+
+        // verify User
+        const verifyUser = async (req, res, next) => {
+            const decodedEmail = req.decoded.email
+            const query = { email: decodedEmail }
+            const user = await usersCollection.findOne(query)
+
+            if (user?.role !== 'user') {
+                res.status(403).send({ message: 'Forbidden Access' })
+            }
+            next()
+        }
+
+        // --------------------------------------------------------------
+
+
+        // admin hook 
+        app.get('/users/admin/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email }
+            const user = await usersCollection.findOne(query)
+            res.send({ isAdmin: user.role === 'admin' })
+        })
+
+
+        // seller Hook
+        app.get('/users/seller/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email }
+            const user = await usersCollection.findOne(query)
+            res.send({ isSeller: user.role === 'seller' })
+        })
+
+
+        // user Hook
+        app.get('/users/user/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email }
+            const user = await usersCollection.findOne(query)
+            res.send({ isUser: user.role === 'user' })
+        })
+
+        // ----------------------------------------------------------
 
         // verify jwt token
         app.get('/jwt', async (req, res) => {
@@ -50,10 +119,10 @@ async function run() {
             const user = await usersCollection.findOne(query)
             if (user) {
                 const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
-                console.log(token);
+                // console.log(token);
                 return res.send({ accessToken: token })
             }
-            // res.status(403).send({ accessToken: 'unauthorized Access' })
+            res.status(403).send({ accessToken: 'unauthorized Access' })
         })
 
 
@@ -101,7 +170,7 @@ async function run() {
         })
 
         // delete user from admin
-        app.delete('/all-users/:id', verifyJWT, async (req, res) => {
+        app.delete('/all-users/:id', verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await usersCollection.deleteOne(query)
@@ -117,7 +186,7 @@ async function run() {
 
 
         // delete user from admin
-        app.delete('/all-sellers/:id', verifyJWT, async (req, res) => {
+        app.delete('/all-sellers/:id', verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await usersCollection.deleteOne(query)
@@ -125,7 +194,7 @@ async function run() {
         })
 
         // verify user from admin
-        app.put('/all-sellers/:id', verifyJWT, async (req, res) => {
+        app.put('/all-sellers/:id', verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id
             const filter = { _id: ObjectId(id) }
             const options = { upsert: true }
@@ -154,7 +223,7 @@ async function run() {
         })
 
         // Product add from client side
-        app.post('/products', verifyJWT, async (req, res) => {
+        app.post('/products', verifyJWT, verifySeller, async (req, res) => {
             const product = req.body
             const result = await productsCollection.insertOne(product)
             res.send(result)
@@ -193,7 +262,7 @@ async function run() {
 
 
         // report product delete from admin
-        app.delete('/reports/:id', verifyJWT, async (req, res) => {
+        app.delete('/reports/:id', verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id
             const query = { serviceId: id }
             const result = await reportsCollection.deleteOne(query)
@@ -248,13 +317,67 @@ async function run() {
             res.send(result)
         })
 
+        // get order
+        app.get('/orders/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { serviceId: id }
+            const result = await ordersCollection.findOne(query)
+            res.send(result)
+        })
+
         // delete order
-        app.delete('/my-orders/:id', verifyJWT, async (req, res) => {
+        app.delete('/my-orders/:id', verifyJWT, verifyUser, async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
             const result = await ordersCollection.deleteOne(query)
             res.send(result)
         })
+
+        // payment status update
+        app.put('/my-orders/:id', verifyJWT, async (req, res) => {
+            const id = req.params.id
+            const transactionId = req.body
+            // console.log(transactionId);
+            const filter = { serviceId: id }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: {
+                    sold: 'Unavailable',
+                    payment: true,
+                    transactionId: transactionId.transactionId
+                }
+            }
+            const result = await ordersCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
+        })
+
+
+        // --------------------Payment system-------------------------------
+        app.post('/create-payment-intent', async (req, res) => {
+            const order = req.body;
+            const price = order.price;
+            const amount = price * 100;
+
+            const paymentIntent = await stripe.paymentIntents.create({
+                currency: 'usd',
+                amount: amount,
+                "payment_method_types": [
+                    "card"
+                ]
+            });
+            // console.log(paymentIntent);
+            res.send({
+                clientSecret: paymentIntent.client_secret,
+            });
+        });
+
+        app.post('/payments', async (req, res) => {
+            const payment = req.body;
+            const result = await paymentsCollection.insertOne(payment);
+            res.send(result);
+        })
+
+        // ------------------------------------------------------
 
 
         // advertise stored
@@ -271,8 +394,17 @@ async function run() {
             res.send(result)
         })
 
-        // delete order
-        app.delete('/advertiseProducts/:id', verifyJWT, async (req, res) => {
+
+        // get advertise products
+        app.get('/advertiseProducts/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { serviceId: id }
+            const result = await advertiseProductsCollection.findOne(query)
+            res.send(result)
+        })
+
+        // delete advertise product
+        app.delete('/advertiseProducts/:id', verifyJWT, verifySeller, async (req, res) => {
             const id = req.params.id
             const query = { serviceId: id }
             const result = await advertiseProductsCollection.deleteOne(query)
