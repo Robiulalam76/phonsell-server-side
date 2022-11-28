@@ -111,7 +111,6 @@ async function run() {
         })
 
         // ----------------------------------------------------------
-
         // verify jwt token
         app.get('/jwt', async (req, res) => {
             const email = req.query.email;
@@ -337,7 +336,6 @@ async function run() {
         app.put('/my-orders/:id', verifyJWT, async (req, res) => {
             const id = req.params.id
             const transactionId = req.body
-            // console.log(transactionId);
             const filter = { serviceId: id }
             const options = { upsert: true }
             const updateDoc = {
